@@ -112,6 +112,9 @@ if __name__ == "__main__":
     #smooth_move_to_element(driver, signin_button, duration_ms=900)
     sleep(5)
     signin_button.click()
+
+    # --- Login ---
+
     sleep(5)
     input_email = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "email"))
@@ -137,6 +140,17 @@ if __name__ == "__main__":
     actions.move_to_element(signin_button).click().perform()
     sleep(10)
 
+    # --- Accesso all'area personale e download scontrini ---
+    user_icon = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "span.dropdown-toggle"))
+        )
+    
+    actions.move_to_element(user_icon).click().perform()
+    sleep(2.3)
+
+    receipt_option = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "li.linkable:nth-child(2) > div:nth-child(1)")))
+    actions.move_to_element(receipt_option).click().perform()
+    sleep(10)
 
     print(driver.title)
     driver.quit()
